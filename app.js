@@ -1,6 +1,7 @@
 window.addEventListener('load', function () {
   const canvas = document.querySelector("canvas");
-  const btn=document.querySelector(".btn")
+  const btn = document.querySelector(".btn")
+  const spreads = document.getElementById(".spread");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
@@ -8,9 +9,9 @@ window.addEventListener('load', function () {
   const maxleve = 6
   const size = canvas.width<canvas.height ? canvas.width*.3 : canvas.height*.3
   const branches = 2
-  const spread = .4
-  const scale = .5
-  let sides=12
+  let spread = .4
+  let scale = .5
+  let sides=11
 
   let color='hsl('+Math.random()*360+',100%,50%)'
   
@@ -22,7 +23,7 @@ window.addEventListener('load', function () {
   ctx.shadowOffsetY = 5;
   ctx.shadowBlur = 10
   
-  
+
 
 
   function drawline(level) {
@@ -48,10 +49,27 @@ window.addEventListener('load', function () {
 
     
   }
- 
-   
+  btn.addEventListener("click", () => {
+    spread = Math.random() * 2.9 + 0.1;
+    scale = Math.random() * 0.2 + 0.4;
+    sides = Math.floor(Math.random() * 7 + 2);
+    color = 'hsl(' + Math.random() * 360 + ',100%,50%)';
+    drawFractal()
+  });
+  
+  spreads.addEventListener('change', function(e) {
+    console.log(e.target.value)
+    spread = e.target.value
+    drawFractal()
+  })
 
-    function drawFractal() {
+  function updateSlider() {
+    spreads.value = spread;
+   
+  }
+
+  function drawFractal() {
+      ctx.clearRect(0,0,canvas.width,canvas.height)
       ctx.save();
       ctx.strokeStyle=color
       ctx.translate(canvas.width / 2, canvas.height / 2); 
@@ -63,7 +81,5 @@ window.addEventListener('load', function () {
       ctx.restore();
     }
     drawFractal()
-  
- 
 
 })
