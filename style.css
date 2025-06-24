@@ -23,3 +23,6 @@
   text-transform: capitalize;
   margin-bottom: 1rem;
 }
+label{
+  color: #fff;
+}

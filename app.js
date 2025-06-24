@@ -1,14 +1,15 @@
 window.addEventListener('load', function () {
   const canvas = document.querySelector("canvas");
   const btn = document.querySelector(".btn")
-  const spreads = document.getElementById(".spread");
+  const spreads = document.getElementById("spread");
+  const label_spread=document.querySelector('[for="spread"]')
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
   const ctx = canvas.getContext('2d');
-  const maxleve = 6
+  const maxleve = 3
   const size = canvas.width<canvas.height ? canvas.width*.3 : canvas.height*.3
-  const branches = 2
+  const branches = 3
   let spread = .4
   let scale = .5
   let sides=11
@@ -59,14 +60,16 @@ window.addEventListener('load', function () {
   
   spreads.addEventListener('change', function(e) {
     console.log(e.target.value)
-    spread = e.target.value
+    spread = e.target.value;
+    updateSpread()
     drawFractal()
   })
 
-  function updateSlider() {
-    spreads.value = spread;
-   
-  }
+  function updateSpread() {
+    spreads.value = spread
+    label_spread.innerText = 'spread: ' + spread;
+    }
+ 
 
   function drawFractal() {
       ctx.clearRect(0,0,canvas.width,canvas.height)
